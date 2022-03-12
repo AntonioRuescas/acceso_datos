@@ -33,6 +33,15 @@ public class PartidaQueryService extends QueryService<Partida> {
         this.partidaRepository = partidaRepository;
     }
 
+    //Consulta 1
+    List<Partida> findByJugadors_ApodoOrderByGanadorAsc(String apodo) {
+        return partidaRepository.findByJugadors_ApodoOrderByGanadorAsc(apodo);
+    }
+
+    List<Partida> findByJuego_NombreOrderByGanadorAsc(String nombre) {
+        return partidaRepository.findByJuego_NombreOrderByGanadorAsc(nombre);
+    }
+
     /**
      * Return a {@link List} of {@link Partida} which matches the criteria from the database.
      * @param criteria The object which holds all the filters, which the entities should match.

@@ -33,6 +33,11 @@ public class JugadorQueryService extends QueryService<Jugador> {
         this.jugadorRepository = jugadorRepository;
     }
 
+    //Consulta 2
+    long countByPartidas_Ganador(String ganador) {
+        return jugadorRepository.countByPartidas_Ganador(ganador);
+    }
+
     /**
      * Return a {@link List} of {@link Jugador} which matches the criteria from the database.
      * @param criteria The object which holds all the filters, which the entities should match.
