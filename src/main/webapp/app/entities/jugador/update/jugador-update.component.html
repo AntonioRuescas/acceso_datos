@@ -1,0 +1,112 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-jugador-heading" data-cy="JugadorCreateUpdateHeading">Create or edit a Jugador</h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="row mb-3" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-label" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_apodo">Apodo</label>
+          <input type="text" class="form-control" name="apodo" id="field_apodo" data-cy="apodo" formControlName="apodo" />
+          <div *ngIf="editForm.get('apodo')!.invalid && (editForm.get('apodo')!.dirty || editForm.get('apodo')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('apodo')?.errors?.required"> This field is required. </small>
+            <small class="form-text text-danger" *ngIf="editForm.get('apodo')?.errors?.pattern">
+              This field should follow pattern for "Apodo".
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_nombre">Nombre</label>
+          <input type="text" class="form-control" name="nombre" id="field_nombre" data-cy="nombre" formControlName="nombre" />
+          <div *ngIf="editForm.get('nombre')!.invalid && (editForm.get('nombre')!.dirty || editForm.get('nombre')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('nombre')?.errors?.required"> This field is required. </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_apellido">Apellido</label>
+          <input type="text" class="form-control" name="apellido" id="field_apellido" data-cy="apellido" formControlName="apellido" />
+          <div *ngIf="editForm.get('apellido')!.invalid && (editForm.get('apellido')!.dirty || editForm.get('apellido')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('apellido')?.errors?.required"> This field is required. </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_fechaDeNacimiento">Fecha De Nacimiento</label>
+          <div class="input-group">
+            <input
+              id="field_fechaDeNacimiento"
+              data-cy="fechaDeNacimiento"
+              type="text"
+              class="form-control"
+              name="fechaDeNacimiento"
+              ngbDatepicker
+              #fechaDeNacimientoDp="ngbDatepicker"
+              formControlName="fechaDeNacimiento"
+            />
+            <button type="button" class="btn btn-secondary" (click)="fechaDeNacimientoDp.toggle()">
+              <fa-icon icon="calendar-alt"></fa-icon>
+            </button>
+          </div>
+          <div
+            *ngIf="
+              editForm.get('fechaDeNacimiento')!.invalid &&
+              (editForm.get('fechaDeNacimiento')!.dirty || editForm.get('fechaDeNacimiento')!.touched)
+            "
+          >
+            <small class="form-text text-danger" *ngIf="editForm.get('fechaDeNacimiento')?.errors?.required">
+              This field is required.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label for="field_juegos">Juego</label>
+          <select class="form-control" id="field_juegos" data-cy="juego" multiple name="juegos" formControlName="juegos">
+            <option
+              [ngValue]="getSelectedJuego(juegoOption, editForm.get('juegos')!.value)"
+              *ngFor="let juegoOption of juegosSharedCollection; trackBy: trackJuegoById"
+            >
+              {{ juegoOption.nombre }}
+            </option>
+          </select>
+        </div>
+
+        <div class="row mb-3">
+          <label for="field_partidas">Partida</label>
+          <select class="form-control" id="field_partidas" data-cy="partida" multiple name="partidas" formControlName="partidas">
+            <option
+              [ngValue]="getSelectedPartida(partidaOption, editForm.get('partidas')!.value)"
+              *ngFor="let partidaOption of partidasSharedCollection; trackBy: trackPartidaById"
+            >
+              {{ partidaOption.ganador }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span>Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span>Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

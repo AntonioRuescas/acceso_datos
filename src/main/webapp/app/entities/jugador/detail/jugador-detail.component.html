@@ -1,0 +1,58 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="jugador">
+      <h2 data-cy="jugadorDetailsHeading"><span>Jugador</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span>ID</span></dt>
+        <dd>
+          <span>{{ jugador.id }}</span>
+        </dd>
+        <dt><span>Apodo</span></dt>
+        <dd>
+          <span>{{ jugador.apodo }}</span>
+        </dd>
+        <dt><span>Nombre</span></dt>
+        <dd>
+          <span>{{ jugador.nombre }}</span>
+        </dd>
+        <dt><span>Apellido</span></dt>
+        <dd>
+          <span>{{ jugador.apellido }}</span>
+        </dd>
+        <dt><span>Fecha De Nacimiento</span></dt>
+        <dd>
+          <span>{{ jugador.fechaDeNacimiento | formatMediumDate }}</span>
+        </dd>
+        <dt><span>Juego</span></dt>
+        <dd>
+          <span *ngFor="let juego of jugador.juegos; let last = last">
+            <a [routerLink]="['/juego', juego?.id, 'view']">{{ juego.nombre }}</a
+            >{{ last ? '' : ', ' }}
+          </span>
+        </dd>
+        <dt><span>Partida</span></dt>
+        <dd>
+          <span *ngFor="let partida of jugador.partidas; let last = last">
+            <a [routerLink]="['/partida', partida?.id, 'view']">{{ partida.ganador }}</a
+            >{{ last ? '' : ', ' }}
+          </span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/jugador', jugador.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

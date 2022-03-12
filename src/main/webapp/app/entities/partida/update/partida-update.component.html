@@ -1,0 +1,89 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-partida-heading" data-cy="PartidaCreateUpdateHeading">Create or edit a Partida</h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="row mb-3" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-label" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_ganador">Ganador</label>
+          <input type="text" class="form-control" name="ganador" id="field_ganador" data-cy="ganador" formControlName="ganador" />
+          <div *ngIf="editForm.get('ganador')!.invalid && (editForm.get('ganador')!.dirty || editForm.get('ganador')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('ganador')?.errors?.required"> This field is required. </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_perdedor">Perdedor</label>
+          <input type="text" class="form-control" name="perdedor" id="field_perdedor" data-cy="perdedor" formControlName="perdedor" />
+          <div *ngIf="editForm.get('perdedor')!.invalid && (editForm.get('perdedor')!.dirty || editForm.get('perdedor')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('perdedor')?.errors?.required"> This field is required. </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_puntosDelGanador">Puntos Del Ganador</label>
+          <input
+            type="number"
+            class="form-control"
+            name="puntosDelGanador"
+            id="field_puntosDelGanador"
+            data-cy="puntosDelGanador"
+            formControlName="puntosDelGanador"
+          />
+          <div
+            *ngIf="
+              editForm.get('puntosDelGanador')!.invalid &&
+              (editForm.get('puntosDelGanador')!.dirty || editForm.get('puntosDelGanador')!.touched)
+            "
+          >
+            <small class="form-text text-danger" *ngIf="editForm.get('puntosDelGanador')?.errors?.required">
+              This field is required.
+            </small>
+            <small class="form-text text-danger" *ngIf="editForm.get('puntosDelGanador')?.errors?.min">
+              This field should be at least 0.
+            </small>
+            <small class="form-text text-danger" [hidden]="!editForm.get('puntosDelGanador')?.errors?.number">
+              This field should be a number.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_juego">Juego</label>
+          <select class="form-control" id="field_juego" data-cy="juego" name="juego" formControlName="juego">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="juegoOption.id === editForm.get('juego')!.value?.id ? editForm.get('juego')!.value : juegoOption"
+              *ngFor="let juegoOption of juegosSharedCollection; trackBy: trackJuegoById"
+            >
+              {{ juegoOption.nombre }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span>Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span>Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
