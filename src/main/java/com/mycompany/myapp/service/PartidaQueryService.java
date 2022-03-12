@@ -34,11 +34,12 @@ public class PartidaQueryService extends QueryService<Partida> {
     }
 
     //Consulta 1
-    List<Partida> findByJugadors_ApodoOrderByGanadorAsc(String apodo) {
+    public List<Partida> findByJugadors_ApodoOrderByGanadorAsc(String apodo) {
         return partidaRepository.findByJugadors_ApodoOrderByGanadorAsc(apodo);
     }
 
-    List<Partida> findByJuego_NombreOrderByGanadorAsc(String nombre) {
+    //Consulta 3
+    public List<Partida> findByJuego_NombreOrderByGanadorAsc(String nombre) {
         return partidaRepository.findByJuego_NombreOrderByGanadorAsc(nombre);
     }
 

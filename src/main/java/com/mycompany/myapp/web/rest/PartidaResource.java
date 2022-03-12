@@ -53,6 +53,21 @@ public class PartidaResource {
     }
 
     /**
+     * #####################################Consulta 1
+     * @param apodo
+     * @return
+     */
+    @PostMapping(value = "/ganadas")
+    ResponseEntity<List<Partida>> JugadoresPartidasGanadas(String apodo) {
+        return ResponseEntity.ok().body(partidaQueryService.findByJugadors_ApodoOrderByGanadorAsc(apodo));
+    }
+
+    @PostMapping(value = "/juego")
+    ResponseEntity<List<Partida>> JuegoGanadaores(String nombre) {
+        return ResponseEntity.ok().body(partidaQueryService.findByJuego_NombreOrderByGanadorAsc(nombre));
+    }
+
+    /**
      * {@code POST  /partidas} : Create a new partida.
      *
      * @param partida the partida to create.

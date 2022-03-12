@@ -53,6 +53,17 @@ public class JugadorResource {
     }
 
     /**
+     * ######################Consulta 2
+     * @param ganador
+     * @return
+     */
+
+    @PostMapping(value = "/partidas")
+    ResponseEntity<Long> countByPartidas_Ganador(@RequestParam String ganador) {
+        return ResponseEntity.ok().body(jugadorQueryService.countByPartidas_Ganador(ganador));
+    }
+
+    /**
      * {@code POST  /jugadors} : Create a new jugador.
      *
      * @param jugador the jugador to create.
