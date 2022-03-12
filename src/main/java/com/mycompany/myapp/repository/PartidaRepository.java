@@ -37,4 +37,10 @@ public interface PartidaRepository extends JpaRepository<Partida, Long>, JpaSpec
 
     @Query("select partida from Partida partida left join fetch partida.juego where partida.id =:id")
     Optional<Partida> findOneWithToOneRelationships(@Param("id") Long id);
+
+    //Metrica 1
+    List<Partida> findByJugadors_ApodoOrderByGanadorAsc(String apodo);
+
+    //Metrica 3
+    List<Partida> findByJuego_NombreOrderByGanadorAsc(String nombre);
 }

@@ -26,4 +26,7 @@ public interface JugadorRepository
     default Page<Jugador> findAllWithEagerRelationships(Pageable pageable) {
         return this.fetchBagRelationships(this.findAll(pageable));
     }
+
+    //Metrica 2
+    long countByPartidas_Ganador(String ganador);
 }
