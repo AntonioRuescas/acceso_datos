@@ -57,12 +57,12 @@ public class PartidaResource {
      * @param apodo
      * @return
      */
-    @PostMapping(value = "/ganadas")
+    @GetMapping(value = "/ganadas")
     ResponseEntity<List<Partida>> JugadoresPartidasGanadas(String apodo) {
         return ResponseEntity.ok().body(partidaQueryService.findByJugadors_ApodoOrderByGanadorAsc(apodo));
     }
 
-    @PostMapping(value = "/juego")
+    @GetMapping(value = "/juegoganadores")
     ResponseEntity<List<Partida>> JuegoGanadaores(String nombre) {
         return ResponseEntity.ok().body(partidaQueryService.findByJuego_NombreOrderByGanadorAsc(nombre));
     }

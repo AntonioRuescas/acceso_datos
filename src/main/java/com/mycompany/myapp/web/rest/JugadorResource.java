@@ -58,8 +58,8 @@ public class JugadorResource {
      * @return
      */
 
-    @PostMapping(value = "/partidas")
-    ResponseEntity<Long> countByPartidas_Ganador(@RequestParam String ganador) {
+    @GetMapping(value = "/partidasganador")
+    ResponseEntity<Long> Partidas_Ganador(@RequestParam String ganador) {
         return ResponseEntity.ok().body(jugadorQueryService.countByPartidas_Ganador(ganador));
     }
 
